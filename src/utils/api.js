@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: `${process.env.REACT_APP_BACKEND_PROXY}/api`,
+  baseURL: `${process.env.REACT_APP_BACKEND_URL}/api`, // 프록시 사용 안하고 Heroku로 연결
   headers: {
     "Content-Type": "application/json",
     authorization: "Bearer " + sessionStorage.getItem("token"),

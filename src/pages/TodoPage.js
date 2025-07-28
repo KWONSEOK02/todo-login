@@ -10,7 +10,8 @@ const TodoPage = () => {
   const [todoValue, setTodoValue] = useState("");
 
   const getTasks = async () => {
-    const response = await api.get("/tasks");
+    const response = await api.get("/tasks");  // 400 요청 실패로 tasks list 콘솔 로그가 현재 안 나오는 상태 해결
+    console.log("tasks list", response.data.data);//해결 방법: taskController.getTask 인증 미들웨어에서 정의된 req.userId를 추출해서 사용해야 userId가 undefined가 아닌 정의된 상태로 할일 목록 가져 올 수 있었음
     setTodoList(response.data.data);
   };
   useEffect(() => {
@@ -71,6 +72,20 @@ const TodoPage = () => {
         <Col xs={12} sm={2}>
           <button onClick={addTodo} className="button-add">
             추가
+          </button>
+        </Col>
+      </Row>
+
+      <Row className="auth-row" style={{ marginTop: "20px" }}>
+        <Col>
+        <button
+          onClick={() => {
+            sessionStorage.removeItem("token"); // 토큰 삭제
+            window.location.href = "/login"; // 로그인 페이지로 이동
+          }}
+          className="button-logout"
+        >
+            로그아웃
           </button>
         </Col>
       </Row>

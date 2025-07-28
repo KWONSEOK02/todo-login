@@ -22,13 +22,14 @@ const RegisterPage = () => {
       const response = await api.post("/user", { name, email, password });
       if (response.status == 200) {
         navigate("/login"); //로그인 페이지로 이동동
-      }else{
-        throw new error(response.data.error);
-      }      
+      }
+     //status 200이 아니면 catch로 이동하기 때문에  else문 무시 당함. else문 삭제제
 
       // api
     } catch (error) {
-      setError(error.message);
+      const fallbackMessage = "알 수 없는 오류가 발생했습니다. 다시 시도해주세요."; // '비밀번호 누락','이메일 중복', '비밀번호 불일치' 외의 기타 오류에 대한 기본 메시지
+      const displayMessage = error?.response?.data?.message || error.message || fallbackMessage; //error?.response?.data?.message <-null일 때 오류 발생안하고 undefined
+      setError(displayMessage); //  사용자에게 보여줄 적절한 오류 메시지를 설정
     }
   };
 

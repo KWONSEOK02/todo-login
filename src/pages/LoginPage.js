@@ -1,14 +1,13 @@
 import React, {useState} from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, Navigate } from "react-router-dom";
 import api from "../utils/api";
 
-const LoginPage = () => {
+const LoginPage = ({user, setUser}) => { // App.js 에서 setUser 가져옴
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-  const [user, setUser] = useState("");
   const navigate = useNavigate();
 
 
@@ -30,6 +29,10 @@ const LoginPage = () => {
 
   };
 
+  if (user) {
+    console.log("You don't have to login");  // 이미 로그인되어 있으므로 로그인 페이지 접근 차단
+    return <Navigate to="/" />
+  }
   return (
     <div className="display-center">
       {error && <div className="red-error">{error}</div>}

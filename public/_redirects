@@ -1,2 +1,2 @@
-/api/*  http://todo-demo.us-east-2.elasticbeanstalk.com/api/:splat 200
+/api/*  https://todolist-app-10bb5e629f71.herokuapp.com/api/:splat 200
 /*    /index.html   200
